@@ -2,6 +2,7 @@ import { CiLinkedin } from "react-icons/ci";
 import { FaGithub } from "react-icons/fa";
 import { SiSubstack } from "react-icons/si";
 import LeftAlignedTimeline from "./components/Timeline";
+import Chatbot from "./components/Chatbot";
 
 export default function Home() {
   return (
@@ -24,13 +25,10 @@ export default function Home() {
           <a href="https://chenshuz.blog/" className="text-lg text-blue-600" > Chinese</a>, 
           and <a href="https://github.com/chelsea-zhou" className="text-lg text-blue-600" >Code</a>.
           <br></br>
-          Beijing native, I now live in Vancouver, Canada.
       </p>
       <div className="space-y-4">
           <h2 className="text-2xl font-semibuld text-gray-800">Chat with me through my writing</h2>
-          <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-              <div className="text-center text-gray-500">Chatbot goes here</div>
-          </div>
+          <Chatbot />
       </div>
 
       <div className="space-y-4">
