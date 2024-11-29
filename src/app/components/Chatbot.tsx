@@ -17,14 +17,8 @@ export default function Chatbot() {
 
     try {
       // Send message to backend API
-      const response = await axios.post('http://127.0.0.1:8000/chat', { query });
-      // const response = {
-      //   data: {
-      //     answer: "Chenshu, a prominent figure in various fields, may not have a widely recognized or documented life philosophy that is universally acknowledged. If you are referring to a specific individual named Chenshu, please provide more context or details about their background or contributions. This will help me give you a more accurate and relevant response regarding their life philosophy or beliefs.",
-      //   }
-      // }
+      const response = await axios.post('https://chenshubot.vercel.app/chat', { query });
       console.log(response.data)
-      // Add bot's response to the chat
       const answer = response.data.answer
       const context = response.data.context
       setMessages((prevMessages) => [
