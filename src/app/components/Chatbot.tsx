@@ -5,16 +5,19 @@ import axios from 'axios';
 export default function Chatbot() {
   const [messages, setMessages] = useState<{ sender: string; text: string , link?: []}[]>([]);
   const [input, setInput] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
 
   const handleSend = async () => {
     if (!input.trim()) return;
-
+    const query = input;
+    setInput('');
     // Add user's message to the chat
-    setMessages([...messages, { sender: 'user', text: input }]);
+    setMessages([...messages, { sender: 'user', text: query }]);
+    setIsTyping(true);
 
     try {
       // Send message to backend API
-      const response = await axios.post('http://127.0.0.1:8000/chat', { query: input });
+      const response = await axios.post('http://127.0.0.1:8000/chat', { query });
       // const response = {
       //   data: {
       //     answer: "Chenshu, a prominent figure in various fields, may not have a widely recognized or documented life philosophy that is universally acknowledged. If you are referring to a specific individual named Chenshu, please provide more context or details about their background or contributions. This will help me give you a more accurate and relevant response regarding their life philosophy or beliefs.",
@@ -28,20 +31,17 @@ export default function Chatbot() {
         ...prevMessages,
         { sender: 'bot', text: answer , link: context},
         //{ sender: 'bot', text: answer , link: []},
-
       ]);
+      setIsTyping(false);
     } catch (error) {
       console.error('Error sending message:', error);
     }
-
-    // Clear input field
-    setInput('');
   };
 
   return (
-    <div className="flex flex-col  mt-10 p-4 pt-5 border-2 rounded-lg shadow-lg bg-gray-100">
+    <div className="flex flex-col  mt-10 p-4 pt-5 aspect-[3/2] overflow-auto rounded-lg shadow-lg bg-gray-100">
       <div
-        className="flex flex-col space-y-2 p-5 h-128 overflow-y-auto bg-white border rounded-lg"
+        className="flex flex-col space-y-2 p-5 aspect-[5/3] overflow-auto overflow-y-auto bg-white border rounded-lg"
         id="chat-window"
       >
         {messages.map((msg, idx) => (
@@ -73,11 +73,14 @@ export default function Chatbot() {
         />
         <button
           onClick={handleSend}
-          className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
         >
           Send
         </button>
       </div>
+      {isTyping ? <p className='flex mt-2 px-2 space-x-2'>ChenshuBot Typing ...</p> 
+                : <p className='flex mt-2 space-x-2'></p>
+      }
     </div>
   );
 };
