@@ -15,7 +15,7 @@ export default function Chatbot() {
   }
 
   const getRefs = (contexts:[]) => {
-    const links = [];
+    const links: any[] = [];
 
      contexts.forEach((context, index) => {
       const link = refs[context];
