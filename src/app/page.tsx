@@ -1,8 +1,5 @@
 import { CiLinkedin } from "react-icons/ci";
-import { FaGithub } from "react-icons/fa";
 import { SiSubstack } from "react-icons/si";
-import { MdOutlineEmail } from "react-icons/md";
-import LeftAlignedTimeline from "./components/Timeline";
 import Chatbot from "./components/Chatbot";
 
 export default function Home() {
