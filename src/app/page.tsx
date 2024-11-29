@@ -8,10 +8,10 @@ export default function Home() {
       <h1 className="text-4xl font-buld text-gray-900">ChenshuBot</h1>
       
       <div className="flex justify-left space-x-10 ">
-        <a href="https://chenshuz.substack.com" className="text-gray-600 hover:text-gray-900">
+        <a href="https://chenshuz.substack.com" target="_blank" className="text-gray-600 hover:text-gray-900">
         <SiSubstack size={25}/>
         </a>
-        <a href="https://linkedin.com/in/chenshuz" className="text-gray-600 hover:text-gray-900">
+        <a href="https://www.linkedin.com/in/chenshu-zhou-988488116/" target="_blank" className="text-gray-600 hover:text-gray-900">
         <CiLinkedin size={30}/>
         </a>
         {/* <a href="https://github.com/chelsea-zhou" className="text-gray-600 hover:text-gray-900">
@@ -27,7 +27,7 @@ export default function Home() {
           and <a href="https://github.com/chelsea-zhou" className="text-lg text-blue-600" >Code</a>.
           <br></br>
       </p> */}
-      <p>Hey! Welcome to CheneshuBot, created from part of Chenshu's <a href="https://chenshuz.substack.com" className="text-lg text-blue-600">writings</a>. 
+      <p>Hey! Welcome to CheneshuBot, created from part of Chenshu's <a target="_blank" href="https://chenshuz.substack.com" className="text-lg text-blue-600">writings</a>. 
       If you have any feedbacks, please feel free to share with me at <span>zcs0126@gmail.com</span>.</p>
 
 

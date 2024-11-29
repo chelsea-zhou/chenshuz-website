@@ -20,9 +20,9 @@ export default function Chatbot() {
      contexts.forEach((context, index) => {
       const link = refs[context];
       if (index < contexts.length - 1) {
-        links.push(<a className=" text-blue-500" href={link}>[{context}], </a>)
+        links.push(<a key={context} className="text-blue-500" href={link} target="_blank">[{context}], </a>)
       } else {
-        links.push(<a className=" text-blue-500" href={link}>[{context}]</a>)
+        links.push(<a key={context}  className="text-blue-500" href={link} target="_blank">[{context}]</a>)
       }
     })
     return links;
