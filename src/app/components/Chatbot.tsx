@@ -6,6 +6,27 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<{ sender: string; text: string , link?: []}[]>([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const refs = {
+    "burningman": "https://chenshuz.substack.com/p/burning-man-stories-how-to-figure",
+    "prison": "https://chenshuz.substack.com/p/life-as-a-repeated-prisoners-dilemma",
+    "newyork": "https://chenshuz.substack.com/p/12-5-days-in-new-york-imagination",
+    "sabbatical": "https://chenshuz.substack.com/p/13-no-i-didnt-travel-on-my-sabbatical",
+    "love": "https://chenshuz.substack.com/p/the-art-of-loving"
+  }
+
+  const getRefs = (contexts:[]) => {
+    const links = [];
+
+     contexts.forEach((context, index) => {
+      const link = refs[context];
+      if (index < contexts.length - 1) {
+        links.push(<a className=" text-blue-500" href={link}>[{context}], </a>)
+      } else {
+        links.push(<a className=" text-blue-500" href={link}>[{context}]</a>)
+      }
+    })
+    return links;
+  }
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -18,9 +39,10 @@ export default function Chatbot() {
     try {
       // Send message to backend API
       const response = await axios.post('https://chenshubot.vercel.app/chat', { query });
-      console.log(response.data)
+      // const response = await axios.post('http://127.0.0.1:8000/chat', { query });
       const answer = response.data.answer
       const context = response.data.context
+      console.log(`query: ${query} , answer: ${answer}`);
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'bot', text: answer , link: context},
@@ -52,7 +74,7 @@ export default function Chatbot() {
             >
               <p>{msg.text}</p>
               {msg.link && <p>Refereces:</p>}
-              {msg.link && <p className='underline text-blue'>{Array.from(msg.link).join(", ")}</p>}
+              {msg.link && getRefs(msg.link)}
             </div>
           </div>
         ))}
