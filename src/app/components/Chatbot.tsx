@@ -39,18 +39,33 @@ export default function Chatbot() {
     try {
       // Send message to backend API
       const response = await axios.post('https://chenshubot.vercel.app/chat', { query });
-      // const response = await axios.post('http://127.0.0.1:8000/chat', { query });
-      const answer = response.data.answer
-      const context = response.data.context
+      //const response = await axios.post('http://127.0.0.1:8000/chat', { query });
+      let answer = ''
+      let context = []
+      console.log(response);
+      answer = response.data.answer
+      context = response.data.context
+      
       console.log(`query: ${query} , answer: ${answer}`);
       setMessages((prevMessages) => [
         ...prevMessages,
         { sender: 'bot', text: answer , link: context},
-        //{ sender: 'bot', text: answer , link: []},
       ]);
       setIsTyping(false);
     } catch (error) {
       console.error('Error sending message:', error);
+      if (axios.isAxiosError(error) &&  error.status === 429) {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: 'bot', text: 'Too many requests...slow down' , link: []},
+        ]);
+      } else {
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { sender: 'bot', text: 'Sorry, internal server error' , link: []},
+        ]);
+      }
+      setIsTyping(false);
     }
   };
 
@@ -73,7 +88,7 @@ export default function Chatbot() {
               } px-4 py-2 rounded-lg`}
             >
               <p>{msg.text}</p>
-              {msg.link && <p>Refereces:</p>}
+              {msg.link && msg.link.length > 0 && <p>Refereces:</p>}
               {msg.link && getRefs(msg.link)}
             </div>
           </div>
